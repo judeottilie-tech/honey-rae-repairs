@@ -1,21 +1,17 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { getAllTickets } from "./services/ticketServices"
 
-export const App = () => {  
-  const [count, setCount] = useState(0) // [stateVariable, setterFunction]
+export const App = () => {
+  const [allTickets, setAllTickets] = useState([])
 
-  const handleButtonClick = () => {
-    setCount(count + 1)
-    console.log(count)
-  }
-  
-  return (
-    <>
-      <h1>Hello!</h1>
-      <div>This is amazing!</div>
-      <button className="btn-secondary" onClick={handleButtonClick}>
-        Click me!
-      </button>
-      <div>Count: {count}</div>
-    </>
-  )
+  useEffect(() => {
+ getAllTickets().then((ticketsArray) => {
+    setAllTickets(ticketsArray)
+    console.log("tickets set!")
+   })
+
+  }, []) // ONLY runs on initial render of component
+
+    return <></>
+
 }
