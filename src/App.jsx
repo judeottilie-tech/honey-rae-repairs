@@ -7,25 +7,29 @@ export const App = () => {
   const [showEmergencyOnly, setShowEmergencyOnly] = useState(false)
   const [filteredTickets, setFilteredTickets] = useState([])
 
-  useEffect(() => {
+  //useEffect runs code ONLY on initial render which we do by passing an empty dependency array []
+  useEffect(() => { //function is WHAT we want to happen, callback function
+    //getAllTickets returns a promise, so chain .then()
+    //data is stored in allTickets state
     getAllTickets().then((ticketsArray) => {
       setAllTickets(ticketsArray)
       console.log("tickets set!")
     })
-  }, []) // ONLY runs on initial render of component
+  }, []) // ONLY runs on initial render of component, array is WHEN we want it to happen
 
-  useEffect(() => {
+  useEffect(() => { //runs whenever showEmergencyonly or allTickets changes
     if (showEmergencyOnly) {
-      const emergencyTickets = allTickets.filter(
+      const emergencyTickets = allTickets.filter( //.filter returns new array with only items where emergency = true
         (ticket) => ticket.emergency === true,
       )
       setFilteredTickets(emergencyTickets)
     } else {
+      //no filter active so show everything
       setFilteredTickets(allTickets)
     }
-  }, [showEmergencyOnly, allTickets])
+  }, [showEmergencyOnly, allTickets]) //when dependency contains state variable, useEffect is watching for any time the value changes. this useEffect depends on both showEmergencyOnly and allTickets
 
-  return (
+  return ( //display emergency toggle button and also filter tickets by emergency
     <div className="tickets-container">
       <h2>Tickets</h2>
       <div>
@@ -43,6 +47,9 @@ export const App = () => {
           onClick={() => {
             setShowEmergencyOnly(false)
           }}
+          //key is required to track list of items
+          //.map() loops thru filteredTickets, returning <section>s for each
+          //if emergency is true, show yes, otherwise no
         >
           Show All
         </button>
@@ -50,7 +57,7 @@ export const App = () => {
       <article className="tickets">
         {filteredTickets.map((ticket) => {
           return (
-            <section className="ticket" key={ticket.id}>
+            <section className="ticket" key={ticket.id}> 
               <header className="ticket-info">#{ticket.id}</header>
               <div>{ticket.description}</div>
               <footer>
