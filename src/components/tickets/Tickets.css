@@ -111,3 +111,14 @@ button {
   text-shadow: 2px 3px 4px lightslategray;
 }
 
+.ticket-search {
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid var(--outline);
+  border-radius: 0.25rem;
+  margin-left: auto;
+}
+
+.filter-bar {
+  display: flex;
+}

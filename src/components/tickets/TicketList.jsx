@@ -7,6 +7,7 @@ export const TicketList = () => {
   const [allTickets, setAllTickets] = useState([])
   const [showEmergencyOnly, setShowEmergencyOnly] = useState(false)
   const [filteredTickets, setFilteredTickets] = useState([])
+  const [searchTerm, setSearchTerm] = useState("")
 
   //useEffect runs code ONLY on initial render which we do by passing an empty dependency array []
   useEffect(() => {
@@ -33,36 +34,27 @@ export const TicketList = () => {
     }
   }, [showEmergencyOnly, allTickets]) //when dependency contains state variable, useEffect is watching for any time the value changes. this useEffect depends on both showEmergencyOnly and allTickets
 
+  useEffect(() => {
+    //search bar useEffect connecting to the onChange setSearchTerm, this allows searching in caps and lowercase too
+    const foundTickets = allTickets.filter((ticket) =>
+      ticket.description.toLowerCase().includes(searchTerm.toLowerCase()),
+    )
+    setFilteredTickets(foundTickets)
+  }, [searchTerm, allTickets])
+
   return (
     //display emergency toggle button and also filter tickets by emergency
     <div className="tickets-container">
       <h2>Tickets</h2>
-      <div>
-        <button
-          className="filter-btn btn-primary"
-          onClick={() => {
-            setShowEmergencyOnly(true)
-          }}
-        >
-          Emergency
-        </button>
+      
+    <TicketFilterBar 
+    setShowEmergencyOnly={setShowEmergencyOnly} 
+    setSearchTerm={setSearchTerm} 
+    />
 
-        <button
-          className="filter-btn btn-info"
-          onClick={() => {
-            setShowEmergencyOnly(false)
-          }}
-          //key is required to track list of items
-          //.map() loops thru filteredTickets, returning <section>s for each
-          //if emergency is true, show yes, otherwise no
-        >
-          Show All
-        </button>
-      </div>
       <article className="tickets">
         {filteredTickets.map((ticketObj) => {
-          return <Ticket ticket={ticketObj} name="Joe" key={ticketObj.id} />
-
+          return <Ticket ticket={ticketObj} key={ticketObj.id} />
         })}
       </article>
     </div>
