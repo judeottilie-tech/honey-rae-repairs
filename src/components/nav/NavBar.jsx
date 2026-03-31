@@ -1,21 +1,40 @@
 import "./NavBar.css"
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export const NavBar = () => {
+    const navigate = useNavigate()
+
     return (
-    <ul className="navBar">
+      <ul className="navBar">
         <li className="navbar-item">
-            <Link to="/">Home</Link>
+          <Link to="/">Home</Link>
         </li>
         <li className="navbar-item">
-            <Link to="/tickets">Tickets</Link>
+          <Link to="/tickets">Tickets</Link>
         </li>
         <li className="navbar-item">
-            <Link to="/customers">Customers</Link>
+          <Link to="/customers">Customers</Link>
         </li>
         <li className="navbar-item">
-            <Link to="/employees">Employees</Link>
+          <Link to="/employees">Employees</Link>
         </li>
-    </ul>
+        {localStorage.getItem("honey_user") ? (
+          <li className="navbar-item navbar-logout">
+            <Link
+              className="navbar-link"
+              to=""
+              onClick={() => {
+                localStorage.removeItem("honey_user")
+                navigate("/", { replace: true })
+              }}
+            >
+              Logout
+            </Link>
+          </li>
+        ) : (
+          ""
+        )}
+      </ul>
     )
 }

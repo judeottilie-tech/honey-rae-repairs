@@ -101,6 +101,11 @@ button {
   background-color: #71a500;
 }
 
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
 /* This CSS can be deleted. It is only used for the first chapter */
 .welcome {
   text-align: center;
