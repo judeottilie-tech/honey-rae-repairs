@@ -37,6 +37,8 @@ export const EmployeeForm = ({ currentUser }) => {
       <fieldset>
         <div className="form-group">
           <label>Specialty</label>
+
+          
           <input 
           type="text" 
           value={employee.specialty} 
@@ -45,13 +47,18 @@ export const EmployeeForm = ({ currentUser }) => {
             copy.specialty = event.target.value
             setEmployee(copy)
           }}
-          required className="form-control" 
+          required 
+          className="form-control" 
           />
+
+
         </div>
       </fieldset>
       <fieldset>
         <div className="form-group">
           <label>Hourly Rate:</label>
+
+
           <input 
           type="number" 
           value={employee.rate} 
@@ -63,6 +70,8 @@ export const EmployeeForm = ({ currentUser }) => {
           }}
           className="form-control" 
           />
+
+
         </div>
       </fieldset>
       <fieldset>
