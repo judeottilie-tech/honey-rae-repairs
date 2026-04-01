@@ -1,8 +1,9 @@
 import { Routes, Route, Outlet } from "react-router-dom"
 import { Welcome } from "../components/welcome/Welcome"
 import { CustomerNav } from "../components/nav/CustomerNav"
+import { TicketList } from "../components/tickets/TicketList"
 
-export const CustomerViews = () => {
+export const CustomerViews = ({ currentUser }) => {
   return (
     
       <Routes>
@@ -16,6 +17,10 @@ export const CustomerViews = () => {
           }
         >
           <Route index element={<Welcome />} />
+          <Route 
+          path="/tickets" 
+          element={<TicketList currentUser={ currentUser } />} 
+          />
         </Route>
       </Routes>
     

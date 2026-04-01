@@ -1,12 +1,4 @@
-import { Route, Routes, Outlet } from "react-router-dom"
-import { EmployeeNav } from "../components/nav/EmployeeNav"
-import { Welcome } from "../components/welcome/Welcome"
 import { EmployeeForm } from "../components/forms/EmployeeForm"
-import { EmployeeDetails } from "../components/employees/EmployeeDetails"
-import { EmployeeList } from "../components/employees/EmployeeList"
-import { TicketList } from "../components/tickets/TicketList"
-import { CustomerList } from "../components/customers/CustomerList"
-import { CustomerDetails } from "../components/customers/CustomerDetails"
 import { useEffect, useState } from "react"
 import { CustomerViews } from "./CustomerViews"
 import { EmployeeViews } from "./EmployeeViews"
@@ -24,6 +16,6 @@ export const ApplicationViews = () => {
   return currentUser.isStaff ? (
     <EmployeeViews currentUser={currentUser} />
   ) : (
-    <CustomerViews />
+    <CustomerViews currentUser={currentUser} />
   )
 }

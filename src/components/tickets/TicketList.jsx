@@ -11,15 +11,21 @@ export const TicketList = () => {
   const [filteredTickets, setFilteredTickets] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
 
+  const getAndSetTickets = () => {
+    getAllTickets().then((ticketsArray) => {
+      if (currentUser.isStaff) {
+      setAllTickets(ticketsArray)
+      } else {
+        const customerTickets = ticketsArray.filter(
+          (ticket) => ticket.userId === currentUser.id 
+        )
+      }
+    })
+  }
+
   //useEffect runs code ONLY on initial render which we do by passing an empty dependency array []
   useEffect(() => {
-    //function is WHAT we want to happen, callback function
-    //getAllTickets returns a promise, so chain .then()
-    //data is stored in allTickets state
-    getAllTickets().then((ticketsArray) => {
-      setAllTickets(ticketsArray)
-      console.log("tickets set!")
-    })
+   getAndSetTickets()
   }, []) // ONLY runs on initial render of component, array is WHEN we want it to happen
 
   useEffect(() => {
