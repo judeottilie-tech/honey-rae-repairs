@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { findEmployee } from "../../services/employeeService.jsx"
+import { getEmployeeByUserId } from "../../services/employeeService.jsx"
 
 export const EmployeeDetails = () => {
     // /customer/3
@@ -9,8 +9,8 @@ export const EmployeeDetails = () => {
     const { employeeId } = useParams() 
 
     useEffect(() => {
-        findEmployee(employeeId).then((employeeArray) => {
-            setEmployee(employeeArray[0])
+        getEmployeeByUserId(employeeId).then((employeeArray) => {
+          setEmployee(employeeArray[0])
         })
     }, [employeeId])
 

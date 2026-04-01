@@ -19,7 +19,7 @@ export const Register = (props) => {
           JSON.stringify({
             id: createdUser.id,
             staff: createdUser.isStaff,
-          })
+          }),
         )
 
         navigate("/")

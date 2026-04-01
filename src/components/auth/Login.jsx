@@ -19,7 +19,7 @@ export const Login = () => {
           JSON.stringify({
             id: user.id,
             isStaff: user.isStaff,
-          })
+          }),
         )
 
         navigate("/")
