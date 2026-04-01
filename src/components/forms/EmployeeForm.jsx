@@ -1,6 +1,6 @@
 import "./Form.css"
 import { useEffect, useState } from "react"
-import { getEmployeeByUserId } from "../../services/employeeService"
+import { getEmployeeByUserId, updateEmployee } from "../../services/employeeService"
 import { useNavigate } from "react-router-dom"
 
 export const EmployeeForm = ({ currentUser }) => {
@@ -40,7 +40,7 @@ export const EmployeeForm = ({ currentUser }) => {
 
           <input
             type="text"
-            value={employee.specialty}
+            value={employee.specialty || ""}
             onChange={(event) => {
               const copy = { ...employee }
               copy.specialty = event.target.value
@@ -57,7 +57,7 @@ export const EmployeeForm = ({ currentUser }) => {
 
           <input
             type="number"
-            value={employee.rate}
+            value={employee.rate || ""}
             required
             onChange={(event) => {
               const copy = { ...employee }
@@ -70,7 +70,7 @@ export const EmployeeForm = ({ currentUser }) => {
       </fieldset>
       <fieldset>
         <div className="form-group">
-          <button className="form-btn btn-primary" onCLick={handleSave}>
+          <button className="form-btn btn-primary" onClick={handleSave}>
             Save Profile
           </button>
         </div>

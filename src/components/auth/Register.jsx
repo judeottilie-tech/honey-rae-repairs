@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
 import { createUser, getUserByEmail } from "../../services/userService"
+import { createEmployee } from "../../services/employeeService"
 
 export const Register = (props) => {
   const [customer, setCustomer] = useState({
@@ -14,15 +15,32 @@ export const Register = (props) => {
   const registerNewUser = () => {
     createUser(customer).then((createdUser) => {
       if (createdUser.hasOwnProperty("id")) {
-        localStorage.setItem(
-          "honey_user",
-          JSON.stringify({
-            id: createdUser.id,
-            staff: createdUser.isStaff,
-          }),
-        )
-
-        navigate("/")
+        if (createdUser.isStaff) {
+          // create the employee record linked to the new user
+          createEmployee({
+            userId: createdUser.id,
+            specialty: "",
+            rate: 0,
+          }).then(() => {
+            localStorage.setItem(
+              "honey_user",
+              JSON.stringify({
+                id: createdUser.id,
+                isStaff: createdUser.isStaff,
+              }),
+            )
+            navigate("/")
+          })
+        } else {
+          localStorage.setItem(
+            "honey_user",
+            JSON.stringify({
+              id: createdUser.id,
+              isStaff: createdUser.isStaff,
+            }),
+          )
+          navigate("/")
+        }
       }
     })
   }

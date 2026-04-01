@@ -21,7 +21,7 @@ export const EmployeeViews = ({ currentUser }) => {
         }
       >
         <Route index element={<Welcome />} />
-        <Route path="tickets" element={<TicketList />} />
+        <Route path="tickets" element={<TicketList currentUser={currentUser} />} />
 
         <Route path="employees">
           <Route index element={<EmployeeList />} />

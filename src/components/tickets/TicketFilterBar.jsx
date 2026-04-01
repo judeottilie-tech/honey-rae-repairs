@@ -7,6 +7,9 @@ export const TicketFilterBar = ({
   currentUser,
 }) => {
   const navigate = useNavigate()
+
+  if (!currentUser) return null
+  
   return (
 
     <div className="filter-bar">

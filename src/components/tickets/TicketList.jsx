@@ -12,7 +12,10 @@ export const TicketList = ({ currentUser }) => {
   const [filteredTickets, setFilteredTickets] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
 
+  console.log("currentUser:", currentUser)
+
   const getAndSetTickets = () => {
+    if (!currentUser) return 
     getAllTickets().then((ticketsArray) => {
       if (currentUser.isStaff) {
       setAllTickets(ticketsArray)
@@ -68,7 +71,7 @@ export const TicketList = ({ currentUser }) => {
       
     <TicketFilterBar 
     setShowEmergencyOnly={setShowEmergencyOnly} 
-    setShowOpenOnly={setShowEmergencyOnly}
+    setShowOpenOnly={setShowOpenOnly}
     setSearchTerm={setSearchTerm} 
     currentUser={currentUser}
     />

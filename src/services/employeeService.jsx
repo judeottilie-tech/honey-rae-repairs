@@ -19,3 +19,13 @@ export const updateEmployee = (employee) => {
     body: JSON.stringify(employee),
   })
 }
+
+export const createEmployee = (employee) => {
+  return fetch("http://localhost:8088/employees", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(employee),
+  }).then((res) => res.json())
+}
