@@ -1,5 +1,5 @@
 import { Route, Routes, Outlet } from "react-router-dom"
-import { NavBar } from "../components/nav/NavBar"
+import { EmployeeNav } from "../components/nav/EmployeeNav"
 import { Welcome } from "../components/welcome/Welcome"
 import { EmployeeForm } from "../components/forms/EmployeeForm"
 import { EmployeeDetails } from "../components/employees/EmployeeDetails"
@@ -9,13 +9,13 @@ import { CustomerList } from "../components/customers/CustomerList"
 import { CustomerDetails } from "../components/customers/CustomerDetails"
 
 export const EmployeeViews = ({ currentUser }) => {
-    return (
+  return (
     <Routes>
       <Route
         path="/"
         element={
           <>
-            <NavBar />
+            <EmployeeNav />
             <Outlet />
           </>
         }
@@ -39,5 +39,5 @@ export const EmployeeViews = ({ currentUser }) => {
         />
       </Route>
     </Routes>
-    )
+  )
 }

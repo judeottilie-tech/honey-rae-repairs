@@ -1,5 +1,5 @@
 import { Route, Routes, Outlet } from "react-router-dom"
-import { NavBar } from "../components/nav/NavBar"
+import { EmployeeNav } from "../components/nav/EmployeeNav"
 import { Welcome } from "../components/welcome/Welcome"
 import { EmployeeForm } from "../components/forms/EmployeeForm"
 import { EmployeeDetails } from "../components/employees/EmployeeDetails"
@@ -12,15 +12,14 @@ import { CustomerViews } from "./CustomerViews"
 import { EmployeeViews } from "./EmployeeViews"
 
 export const ApplicationViews = () => {
-  const [currentUser, setCurrentUser] =  useState({})
+  const [currentUser, setCurrentUser] = useState({})
 
   useEffect(() => {
     const localHoneyUser = localStorage.getItem("honey_user")
     const honeyUserObject = JSON.parse(localHoneyUser)
 
-      setCurrentUser(honeyUserObject)
+    setCurrentUser(honeyUserObject)
   }, [])
-
 
   return currentUser.isStaff ? (
     <EmployeeViews currentUser={currentUser} />
