@@ -5,9 +5,10 @@ import { Ticket } from "./Ticket.jsx"
 import { TicketFilterBar } from "./TicketFilterBar.jsx"
 import "./Tickets.css"
 
-export const TicketList = () => {
+export const TicketList = ({ currentUser }) => {
   const [allTickets, setAllTickets] = useState([])
   const [showEmergencyOnly, setShowEmergencyOnly] = useState(false)
+  const [showOpenOnly, setShowOpenOnly] = useState(false)
   const [filteredTickets, setFilteredTickets] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
 
@@ -19,6 +20,7 @@ export const TicketList = () => {
         const customerTickets = ticketsArray.filter(
           (ticket) => ticket.userId === currentUser.id 
         )
+        setAllTickets(customerTickets)
       }
     })
   }
@@ -26,7 +28,7 @@ export const TicketList = () => {
   //useEffect runs code ONLY on initial render which we do by passing an empty dependency array []
   useEffect(() => {
    getAndSetTickets()
-  }, []) // ONLY runs on initial render of component, array is WHEN we want it to happen
+  }, [currentUser]) // ONLY runs on initial render of component, array is WHEN we want it to happen
 
   useEffect(() => {
     //runs whenever showEmergencyonly or allTickets changes
@@ -50,6 +52,15 @@ export const TicketList = () => {
     setFilteredTickets(foundTickets)
   }, [searchTerm, allTickets])
 
+  useEffect(() => {
+    if (showOpenOnly) {
+      const openTickets = allTickets.filter((ticket) => ticket.dateCompleted === '')
+      setFilteredTickets(openTickets)
+    } else {
+      setFilteredTickets(allTickets)
+    }
+  }, [showOpenOnly, allTickets])
+
   return (
     //display emergency toggle button and also filter tickets by emergency
     <div className="tickets-container">
@@ -57,12 +68,21 @@ export const TicketList = () => {
       
     <TicketFilterBar 
     setShowEmergencyOnly={setShowEmergencyOnly} 
+    setShowOpenOnly={setShowEmergencyOnly}
     setSearchTerm={setSearchTerm} 
+    currentUser={currentUser}
     />
 
       <article className="tickets">
         {filteredTickets.map((ticketObj) => {
-          return <Ticket ticket={ticketObj} key={ticketObj.id} />
+          return (
+          <Ticket 
+          ticket={ticketObj} 
+          currentUser={currentUser}
+          getAndSetTickets={getAndSetTickets}
+          key={ticketObj.id}
+          /> 
+          )
         })}
       </article>
     </div>
